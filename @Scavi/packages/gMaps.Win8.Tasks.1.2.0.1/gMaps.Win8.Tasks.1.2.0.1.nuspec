@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>gMaps.Win8.Tasks</id>
+    <version>1.2.0.1</version>
+    <title>gMaps.Win8.Tasks</title>
+    <authors>DreamTeam Mobile</authors>
+    <owners>DreamTeam Mobile</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>gMaps Win8 Tasks package provides quick and easy way to add mapping features to your Windows 8 application for Windows Store with help of activation protocols.
+      You can easily display location, area, pushpin(s) and even route with several lines of code.
+      Example: new OpenMapTask(...).Show();</description>
+    <summary>Tasks to activate gMaps app for Windows 8 (Windows Store app)</summary>
+    <releaseNotes />
+    <copyright />
+    <language>en-US</language>
+    <tags>gmaps windows8 windows store protocol actiovation maps geo drive</tags>
+  </metadata>
+</package>
