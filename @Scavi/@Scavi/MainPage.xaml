@@ -56,13 +56,8 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
 
-            <maps:Map x:Name="myMap" ZoomLevel="5" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="530" Width="436"/>
-            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="52" Margin="10,545,0,0" Stroke="Black" VerticalAlignment="Top" Width="436"/>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="10,545,0,10" Width="109"/>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="109,545,0,10" Width="109"/>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="223,545,0,10" Width="109"/>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="337,545,0,10" Width="109"/>
-
+            <maps:Map x:Name="myMap" ZoomLevel="5" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="587" Width="436"/>
+           
         </Grid>
 
     </Grid>
