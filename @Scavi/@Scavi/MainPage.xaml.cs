@@ -153,21 +153,10 @@ namespace _Scavi
                 coordinateToBack.Longitude = geoposition.Coordinate.Longitude;
                 return coordinateToBack;
             }
-            catch (Exception ex)
+            catch (ArgumentException AE)
             {
-                if ((uint)ex.HResult == 0x80004004)
-                {
-                    // the application does not have the right capability or the location master switch is off
-                    MessageBox.Show("location  is disabled in phone settings.");
-                }
-                //else
-                {
-                    // something else happened acquring the location
-                }
-
-
+                MessageBox.Show(AE.StackTrace);
             }
-            return null;
         }
     }
 }
