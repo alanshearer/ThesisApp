@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.20827.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "@Scavi", "@Scavi\@Scavi.csproj", "{25E3E554-55DB-40ED-89A1-F384A46ACF41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "@ScaviService", "@ScaviService\@ScaviService.csproj", "{52F15B8C-39FF-4BB8-BF2A-3CCAB5ABD8C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,14 @@ Global
 		{25E3E554-55DB-40ED-89A1-F384A46ACF41}.Release|x86.ActiveCfg = Release|x86
 		{25E3E554-55DB-40ED-89A1-F384A46ACF41}.Release|x86.Build.0 = Release|x86
 		{25E3E554-55DB-40ED-89A1-F384A46ACF41}.Release|x86.Deploy.0 = Release|x86
+		{52F15B8C-39FF-4BB8-BF2A-3CCAB5ABD8C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52F15B8C-39FF-4BB8-BF2A-3CCAB5ABD8C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52F15B8C-39FF-4BB8-BF2A-3CCAB5ABD8C5}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{52F15B8C-39FF-4BB8-BF2A-3CCAB5ABD8C5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{52F15B8C-39FF-4BB8-BF2A-3CCAB5ABD8C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52F15B8C-39FF-4BB8-BF2A-3CCAB5ABD8C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52F15B8C-39FF-4BB8-BF2A-3CCAB5ABD8C5}.Release|ARM.ActiveCfg = Release|Any CPU
+		{52F15B8C-39FF-4BB8-BF2A-3CCAB5ABD8C5}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
