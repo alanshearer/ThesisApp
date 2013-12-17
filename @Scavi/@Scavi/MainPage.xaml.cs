@@ -14,6 +14,7 @@ using Microsoft.Phone.Maps.Toolkit;
 using Windows.Devices.Geolocation;
 using System.Threading.Tasks;
 using System.IO.IsolatedStorage;
+using System.Windows.Media;
 
 namespace _Scavi
 {
@@ -112,18 +113,25 @@ namespace _Scavi
 
 
 
-        void CenterMapButton_Click(object sender, EventArgs e)
+        async void CenterMapButton_Click(object sender, EventArgs e)
         {
-            GeoCoordinate position = GetPosition().Result;
+            GeoCoordinate position = new GeoCoordinate();
+            GeoCoordinate PositionGotten = await GetPosition();
+            position = PositionGotten;
 
             Pushpin positionPushpin = new Pushpin();
-            positionPushpin.GeoCoordinate = positionPushpin.GeoCoordinate;
+            //positionPushpin.Background = new SolidColorBrush(Colors.Red);
+            //positionPushpin.Content = "myposition";
+            positionPushpin.GeoCoordinate = position;
             MapOverlay overlay0 = new MapOverlay();
             overlay0.Content = positionPushpin;
             overlay0.GeoCoordinate = positionPushpin.GeoCoordinate;
+           
             MapLayer positionLayer = new MapLayer();
             positionLayer.Add(overlay0);
+            myMap.Layers.Add(positionLayer);
             myMap.Center = positionPushpin.GeoCoordinate;
+
 
         }
 
@@ -131,32 +139,27 @@ namespace _Scavi
 
         async Task<GeoCoordinate> GetPosition()
         {
+            GeoCoordinate coordinateToBack = new GeoCoordinate(0, 0);
+       
+                    Geolocator geolocator = new Geolocator();
+                    geolocator.DesiredAccuracyInMeters = 50;
 
-            if ((bool)IsolatedStorageSettings.ApplicationSettings["LocationConsent"] != true)
-            {
-                // The user has opted out of Location.
-                return new GeoCoordinate(0,0);
-            }
+                    try
+                    {
+                        Geoposition geoposition = await geolocator.GetGeopositionAsync(
+                            maximumAge: TimeSpan.FromMinutes(5),
+                            timeout: TimeSpan.FromSeconds(10)
+                            );
 
-            Geolocator geolocator = new Geolocator();
-            geolocator.DesiredAccuracyInMeters = 50;
-
-            try
-            {
-                Geoposition geoposition = await geolocator.GetGeopositionAsync(
-                    maximumAge: TimeSpan.FromMinutes(5),
-                    timeout: TimeSpan.FromSeconds(10)
-                    );
-
-                GeoCoordinate coordinateToBack = new GeoCoordinate();
-                coordinateToBack.Latitude = geoposition.Coordinate.Latitude;
-                coordinateToBack.Longitude = geoposition.Coordinate.Longitude;
-                return coordinateToBack;
-            }
-            catch (ArgumentException AE)
-            {
-                MessageBox.Show(AE.StackTrace);
-            }
+                        coordinateToBack.Latitude = geoposition.Coordinate.Latitude;
+                        coordinateToBack.Longitude = geoposition.Coordinate.Longitude;
+                    }
+                    catch (ArgumentException AE)
+                    {
+                        MessageBox.Show(AE.StackTrace);
+                    }
+             
+            return coordinateToBack;
         }
     }
 }
