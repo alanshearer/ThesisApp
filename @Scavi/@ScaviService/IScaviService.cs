@@ -1,10 +1,12 @@
-﻿using _ScaviService.Contracts;
+﻿using _ScaviDataModel.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace _ScaviService
 {
@@ -13,6 +15,6 @@ namespace _ScaviService
     public interface IScaviService
     {
         [OperationContract]
-        List<PointOfInterest> GetPointsOfInterest();
+        String GetPointsOfInterestRSSAsync();
     }
 }

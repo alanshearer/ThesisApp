@@ -143,4 +143,7 @@
   <data name="ZoomoutButton" xml:space="preserve">
     <value>Zoom Out</value>
   </data>
+  <data name="ShowPointsOfInterestButton" xml:space="preserve">
+    <value>Show Points</value>
+  </data>
 </root>

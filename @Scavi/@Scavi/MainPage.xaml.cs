@@ -20,9 +20,12 @@ namespace _Scavi
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        ScaviServiceClient client = new ScaviServiceClient();
+
         // Constructor
         public MainPage()
         {
+
             InitializeComponent();
             //Map myMap = new Map();
             //this.myMap = new Map();
@@ -88,6 +91,11 @@ namespace _Scavi
             ApplicationBar.Buttons.Add(CenterMapButton);
             CenterMapButton.Click += CenterMapButton_Click;
 
+            ApplicationBarIconButton ShowPointsOfInterestButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/showpois.png", UriKind.Relative));
+            ShowPointsOfInterestButton.Text = AppResources.ShowPointsOfInterestButton;
+            ApplicationBar.Buttons.Add(ShowPointsOfInterestButton);
+            ShowPointsOfInterestButton.Click += ShowPointsOfInterestButton_Click;
+
             // Create a new menu item with the localized string from AppResources.
             //ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
             //ApplicationBar.MenuItems.Add(appBarMenuItem);
@@ -116,7 +124,7 @@ namespace _Scavi
         async void CenterMapButton_Click(object sender, EventArgs e)
         {
             GeoCoordinate position = new GeoCoordinate();
-            GeoCoordinate PositionGotten = await GetPosition();
+            GeoCoordinate PositionGotten = await client.GetPosition();
             position = PositionGotten;
 
             Pushpin positionPushpin = new Pushpin();
@@ -135,31 +143,21 @@ namespace _Scavi
 
         }
 
-       
-
-        async Task<GeoCoordinate> GetPosition()
+        void ShowPointsOfInterestButton_Click(object sender, EventArgs e)
         {
-            GeoCoordinate coordinateToBack = new GeoCoordinate(0, 0);
-       
-                    Geolocator geolocator = new Geolocator();
-                    geolocator.DesiredAccuracyInMeters = 50;
+            Pushpin positionPushpin = client.GetPushpin();
+            //positionPushpin.Background = new SolidColorBrush(Colors.Red);
+            //positionPushpin.Content = "myposition";
+            MapOverlay overlay0 = new MapOverlay();
+            overlay0.Content = positionPushpin;
+            overlay0.GeoCoordinate = positionPushpin.GeoCoordinate;
 
-                    try
-                    {
-                        Geoposition geoposition = await geolocator.GetGeopositionAsync(
-                            maximumAge: TimeSpan.FromMinutes(5),
-                            timeout: TimeSpan.FromSeconds(10)
-                            );
+            MapLayer positionLayer = new MapLayer();
+            positionLayer.Add(overlay0);
+            myMap.Layers.Add(positionLayer);
+            myMap.Center = positionPushpin.GeoCoordinate;
 
-                        coordinateToBack.Latitude = geoposition.Coordinate.Latitude;
-                        coordinateToBack.Longitude = geoposition.Coordinate.Longitude;
-                    }
-                    catch (ArgumentException AE)
-                    {
-                        MessageBox.Show(AE.StackTrace);
-                    }
-             
-            return coordinateToBack;
         }
+       
     }
 }
