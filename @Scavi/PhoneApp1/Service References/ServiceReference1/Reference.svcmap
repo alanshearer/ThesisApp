@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3757392e-a159-4901-9a4a-01bc62bf136d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:9999/ScaviService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ScaviService.wsdl" MetadataType="Wsdl" ID="e985b28e-37d5-4c49-b349-193d230b9dbc" SourceId="1" SourceUrl="http://localhost:9999/ScaviService.svc?wsdl" />
+    <MetadataFile FileName="ScaviService.xsd" MetadataType="Schema" ID="9fe89fea-522b-4421-8d08-ab3fdc6f9f99" SourceId="1" SourceUrl="http://localhost:9999/ScaviService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ScaviService.disco" MetadataType="Disco" ID="a54fe153-262c-43a2-9044-5ca25761a249" SourceId="1" SourceUrl="http://localhost:9999/ScaviService.svc?disco" />
+    <MetadataFile FileName="ScaviService1.xsd" MetadataType="Schema" ID="5ad8d1fc-6a0e-4e0a-ab4f-5553968f49e7" SourceId="1" SourceUrl="http://localhost:9999/ScaviService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
