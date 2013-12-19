@@ -16,8 +16,14 @@ namespace _ScaviService
     // NOTE: In order to launch WCF Test Client for testing this service, please select ScaviService.svc or ScaviService.svc.cs at the Solution Explorer and start debugging.
     public class ScaviService : IScaviService
     {
-        PointOfInterestBiz biz = new PointOfInterestBiz();
-        public String GetPointsOfInterestRSSAsync()
+        PointOfInterestBiz biz = null;
+
+        public ScaviService()
+        {
+            biz = new PointOfInterestBiz();
+        }
+
+        public String GetPointsOfInterestRSS()
         {
 
             XmlWriterSettings settings = new XmlWriterSettings();
@@ -49,5 +55,22 @@ namespace _ScaviService
             return builder.ToString();
 
         }
+
+        public IAsyncResult BeginGetPointOfInterestRSS(AsyncCallback callback, object state)
+        {
+            Func<String> invokeOperation = () => GetPointsOfInterestRSS();
+            return invokeOperation.BeginInvoke(callback, state);
+
+        }
+        public string EndGetPointOfInterestRSS(IAsyncResult result)
+        {
+            var asyncResult = (System.Runtime.Remoting.Messaging.AsyncResult)result;
+
+            var func = (Func<String>)asyncResult.AsyncDelegate;
+
+            return func.EndInvoke(result);
+        }
+
+
     }
 }

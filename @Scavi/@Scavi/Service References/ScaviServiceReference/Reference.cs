@@ -18,35 +18,10 @@ namespace _Scavi.ScaviServiceReference {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ScaviServiceReference.IScaviService")]
     public interface IScaviService {
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IScaviService/GetPointsOfInterestRSSAsync", ReplyAction="http://tempuri.org/IScaviService/GetPointsOfInterestRSSAsyncResponse")]
-        System.IAsyncResult BeginGetPointsOfInterestRSSAsync(_Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncRequest request, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IScaviService/GetPointOfInterestRSS", ReplyAction="http://tempuri.org/IScaviService/GetPointOfInterestRSSResponse")]
+        System.IAsyncResult BeginGetPointOfInterestRSS(System.AsyncCallback callback, object asyncState);
         
-        _Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncResponse EndGetPointsOfInterestRSSAsync(System.IAsyncResult result);
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetPointsOfInterestRSSAsync", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class GetPointsOfInterestRSSAsyncRequest {
-        
-        public GetPointsOfInterestRSSAsyncRequest() {
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="GetPointsOfInterestRSSAsyncResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class GetPointsOfInterestRSSAsyncResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public string GetPointsOfInterestRSSAsyncResult;
-        
-        public GetPointsOfInterestRSSAsyncResponse() {
-        }
-        
-        public GetPointsOfInterestRSSAsyncResponse(string GetPointsOfInterestRSSAsyncResult) {
-            this.GetPointsOfInterestRSSAsyncResult = GetPointsOfInterestRSSAsyncResult;
-        }
+        string EndGetPointOfInterestRSS(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,19 +30,19 @@ namespace _Scavi.ScaviServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class GetPointsOfInterestRSSAsyncCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class GetPointOfInterestRSSCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        public GetPointsOfInterestRSSAsyncCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        public GetPointOfInterestRSSCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
-        public _Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncResponse Result {
+        public string Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((_Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncResponse)(this.results[0]));
+                return ((string)(this.results[0]));
             }
         }
     }
@@ -76,11 +51,11 @@ namespace _Scavi.ScaviServiceReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class ScaviServiceClient : System.ServiceModel.ClientBase<_Scavi.ScaviServiceReference.IScaviService>, _Scavi.ScaviServiceReference.IScaviService {
         
-        private BeginOperationDelegate onBeginGetPointsOfInterestRSSAsyncDelegate;
+        private BeginOperationDelegate onBeginGetPointOfInterestRSSDelegate;
         
-        private EndOperationDelegate onEndGetPointsOfInterestRSSAsyncDelegate;
+        private EndOperationDelegate onEndGetPointOfInterestRSSDelegate;
         
-        private System.Threading.SendOrPostCallback onGetPointsOfInterestRSSAsyncCompletedDelegate;
+        private System.Threading.SendOrPostCallback onGetPointOfInterestRSSCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -135,56 +110,54 @@ namespace _Scavi.ScaviServiceReference {
             }
         }
         
-        public event System.EventHandler<GetPointsOfInterestRSSAsyncCompletedEventArgs> GetPointsOfInterestRSSAsyncCompleted;
+        public event System.EventHandler<GetPointOfInterestRSSCompletedEventArgs> GetPointOfInterestRSSCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> CloseCompleted;
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult _Scavi.ScaviServiceReference.IScaviService.BeginGetPointsOfInterestRSSAsync(_Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncRequest request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetPointsOfInterestRSSAsync(request, callback, asyncState);
+        System.IAsyncResult _Scavi.ScaviServiceReference.IScaviService.BeginGetPointOfInterestRSS(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPointOfInterestRSS(callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        _Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncResponse _Scavi.ScaviServiceReference.IScaviService.EndGetPointsOfInterestRSSAsync(System.IAsyncResult result) {
-            return base.Channel.EndGetPointsOfInterestRSSAsync(result);
+        string _Scavi.ScaviServiceReference.IScaviService.EndGetPointOfInterestRSS(System.IAsyncResult result) {
+            return base.Channel.EndGetPointOfInterestRSS(result);
         }
         
-        private System.IAsyncResult OnBeginGetPointsOfInterestRSSAsync(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            _Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncRequest request = ((_Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncRequest)(inValues[0]));
-            return ((_Scavi.ScaviServiceReference.IScaviService)(this)).BeginGetPointsOfInterestRSSAsync(request, callback, asyncState);
+        private System.IAsyncResult OnBeginGetPointOfInterestRSS(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return ((_Scavi.ScaviServiceReference.IScaviService)(this)).BeginGetPointOfInterestRSS(callback, asyncState);
         }
         
-        private object[] OnEndGetPointsOfInterestRSSAsync(System.IAsyncResult result) {
-            _Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncResponse retVal = ((_Scavi.ScaviServiceReference.IScaviService)(this)).EndGetPointsOfInterestRSSAsync(result);
+        private object[] OnEndGetPointOfInterestRSS(System.IAsyncResult result) {
+            string retVal = ((_Scavi.ScaviServiceReference.IScaviService)(this)).EndGetPointOfInterestRSS(result);
             return new object[] {
                     retVal};
         }
         
-        private void OnGetPointsOfInterestRSSAsyncCompleted(object state) {
-            if ((this.GetPointsOfInterestRSSAsyncCompleted != null)) {
+        private void OnGetPointOfInterestRSSCompleted(object state) {
+            if ((this.GetPointOfInterestRSSCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.GetPointsOfInterestRSSAsyncCompleted(this, new GetPointsOfInterestRSSAsyncCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+                this.GetPointOfInterestRSSCompleted(this, new GetPointOfInterestRSSCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
-        public void GetPointsOfInterestRSSAsyncAsync(_Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncRequest request) {
-            this.GetPointsOfInterestRSSAsyncAsync(request, null);
+        public void GetPointOfInterestRSSAsync() {
+            this.GetPointOfInterestRSSAsync(null);
         }
         
-        public void GetPointsOfInterestRSSAsyncAsync(_Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncRequest request, object userState) {
-            if ((this.onBeginGetPointsOfInterestRSSAsyncDelegate == null)) {
-                this.onBeginGetPointsOfInterestRSSAsyncDelegate = new BeginOperationDelegate(this.OnBeginGetPointsOfInterestRSSAsync);
+        public void GetPointOfInterestRSSAsync(object userState) {
+            if ((this.onBeginGetPointOfInterestRSSDelegate == null)) {
+                this.onBeginGetPointOfInterestRSSDelegate = new BeginOperationDelegate(this.OnBeginGetPointOfInterestRSS);
             }
-            if ((this.onEndGetPointsOfInterestRSSAsyncDelegate == null)) {
-                this.onEndGetPointsOfInterestRSSAsyncDelegate = new EndOperationDelegate(this.OnEndGetPointsOfInterestRSSAsync);
+            if ((this.onEndGetPointOfInterestRSSDelegate == null)) {
+                this.onEndGetPointOfInterestRSSDelegate = new EndOperationDelegate(this.OnEndGetPointOfInterestRSS);
             }
-            if ((this.onGetPointsOfInterestRSSAsyncCompletedDelegate == null)) {
-                this.onGetPointsOfInterestRSSAsyncCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPointsOfInterestRSSAsyncCompleted);
+            if ((this.onGetPointOfInterestRSSCompletedDelegate == null)) {
+                this.onGetPointOfInterestRSSCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPointOfInterestRSSCompleted);
             }
-            base.InvokeAsync(this.onBeginGetPointsOfInterestRSSAsyncDelegate, new object[] {
-                        request}, this.onEndGetPointsOfInterestRSSAsyncDelegate, this.onGetPointsOfInterestRSSAsyncCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginGetPointOfInterestRSSDelegate, null, this.onEndGetPointOfInterestRSSDelegate, this.onGetPointOfInterestRSSCompletedDelegate, userState);
         }
         
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -263,16 +236,15 @@ namespace _Scavi.ScaviServiceReference {
                     base(client) {
             }
             
-            public System.IAsyncResult BeginGetPointsOfInterestRSSAsync(_Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncRequest request, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[1];
-                _args[0] = request;
-                System.IAsyncResult _result = base.BeginInvoke("GetPointsOfInterestRSSAsync", _args, callback, asyncState);
+            public System.IAsyncResult BeginGetPointOfInterestRSS(System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[0];
+                System.IAsyncResult _result = base.BeginInvoke("GetPointOfInterestRSS", _args, callback, asyncState);
                 return _result;
             }
             
-            public _Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncResponse EndGetPointsOfInterestRSSAsync(System.IAsyncResult result) {
+            public string EndGetPointOfInterestRSS(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                _Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncResponse _result = ((_Scavi.ScaviServiceReference.GetPointsOfInterestRSSAsyncResponse)(base.EndInvoke("GetPointsOfInterestRSSAsync", _args, result)));
+                string _result = ((string)(base.EndInvoke("GetPointOfInterestRSS", _args, result)));
                 return _result;
             }
         }

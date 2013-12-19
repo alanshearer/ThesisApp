@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="78f4c52b-86ae-4ff7-a43f-7e86e628f4e0" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b13a9b41-1a45-4670-a9a4-0656486532c5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
     <ExcludedTypes />
     <ImportXmlTypes>false</ImportXmlTypes>
     <GenerateInternalTypes>false</GenerateInternalTypes>
-    <GenerateMessageContracts>true</GenerateMessageContracts>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
     <NamespaceMappings />
     <CollectionMappings>
       <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
@@ -23,9 +23,9 @@
     <MetadataSource Address="http://10.2.10.1:9999/ScaviService.svc?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ScaviService.wsdl" MetadataType="Wsdl" ID="d25e5476-44b1-4036-b68a-fe28d657e8f8" SourceId="1" SourceUrl="http://10.2.10.1:9999/ScaviService.svc?wsdl" />
-    <MetadataFile FileName="ScaviService.xsd" MetadataType="Schema" ID="f0c1a6dc-ac07-42ea-a873-714d975c3452" SourceId="1" SourceUrl="http://10.2.10.1:9999/ScaviService.svc?xsd=xsd0" />
-    <MetadataFile FileName="ScaviService1.xsd" MetadataType="Schema" ID="85847001-5dc3-40d2-acac-21c8149381fe" SourceId="1" SourceUrl="http://10.2.10.1:9999/ScaviService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ScaviService.wsdl" MetadataType="Wsdl" ID="8348fa28-3064-423e-a053-df05cf65009a" SourceId="1" SourceUrl="http://10.2.10.1:9999/ScaviService.svc?wsdl" />
+    <MetadataFile FileName="ScaviService.xsd" MetadataType="Schema" ID="696dc78a-db95-44bf-b1c6-a10130741ef4" SourceId="1" SourceUrl="http://10.2.10.1:9999/ScaviService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ScaviService1.xsd" MetadataType="Schema" ID="d4b56d69-f4b8-432f-8627-54be9934c070" SourceId="1" SourceUrl="http://10.2.10.1:9999/ScaviService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

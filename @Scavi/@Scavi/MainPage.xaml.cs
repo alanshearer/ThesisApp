@@ -148,14 +148,16 @@ namespace _Scavi
             Pushpin positionPushpin = client.GetPushpin();
             //positionPushpin.Background = new SolidColorBrush(Colors.Red);
             //positionPushpin.Content = "myposition";
-            MapOverlay overlay0 = new MapOverlay();
-            overlay0.Content = positionPushpin;
-            overlay0.GeoCoordinate = positionPushpin.GeoCoordinate;
+            //MapOverlay overlay0 = new MapOverlay();
+            //overlay0.Content = positionPushpin;
+            //overlay0.GeoCoordinate = positionPushpin.GeoCoordinate;
 
-            MapLayer positionLayer = new MapLayer();
-            positionLayer.Add(overlay0);
-            myMap.Layers.Add(positionLayer);
-            myMap.Center = positionPushpin.GeoCoordinate;
+            //MapLayer positionLayer = new MapLayer();
+            //positionLayer.Add(overlay0);
+            //myMap.Layers.Add(positionLayer);
+            //myMap.Center = positionPushpin.GeoCoordinate;
+
+            MessageBox.Show(positionPushpin.Name);
 
         }
        

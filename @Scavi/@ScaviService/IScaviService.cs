@@ -14,7 +14,12 @@ namespace _ScaviService
     [ServiceContract]
     public interface IScaviService
     {
-        [OperationContract]
-        String GetPointsOfInterestRSSAsync();
+        //[OperationContract]
+        //String GetPointsOfInterestRSS();
+
+        [OperationContract(AsyncPattern=true)]
+        IAsyncResult BeginGetPointOfInterestRSS(AsyncCallback callback, object state);
+        string EndGetPointOfInterestRSS(IAsyncResult result);
+
     }
 }

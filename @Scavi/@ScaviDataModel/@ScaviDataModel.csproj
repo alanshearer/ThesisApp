@@ -42,8 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\PointOfInterest.cs" />
-    <Compile Include="Contracts\PointOfInterestType.cs" />
+    <Compile Include="PointOfInterest.cs" />
+    <Compile Include="PointOfInterestType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
