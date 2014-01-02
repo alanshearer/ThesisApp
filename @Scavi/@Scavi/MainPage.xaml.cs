@@ -146,18 +146,18 @@ namespace _Scavi
         void ShowPointsOfInterestButton_Click(object sender, EventArgs e)
         {
             Pushpin positionPushpin = client.GetPushpin();
-            //positionPushpin.Background = new SolidColorBrush(Colors.Red);
-            //positionPushpin.Content = "myposition";
-            //MapOverlay overlay0 = new MapOverlay();
-            //overlay0.Content = positionPushpin;
-            //overlay0.GeoCoordinate = positionPushpin.GeoCoordinate;
+            positionPushpin.Background = new SolidColorBrush(Colors.Red);
+            positionPushpin.Content = "myposition";
+            MapOverlay overlay0 = new MapOverlay();
+            overlay0.Content = positionPushpin;
+            overlay0.GeoCoordinate = positionPushpin.GeoCoordinate;
 
-            //MapLayer positionLayer = new MapLayer();
-            //positionLayer.Add(overlay0);
-            //myMap.Layers.Add(positionLayer);
-            //myMap.Center = positionPushpin.GeoCoordinate;
+            MapLayer positionLayer = new MapLayer();
+            positionLayer.Add(overlay0);
+            myMap.Layers.Add(positionLayer);
+            myMap.Center = positionPushpin.GeoCoordinate;
 
-            MessageBox.Show(positionPushpin.Name);
+            //MessageBox.Show(positionPushpin.Name);
 
         }
        

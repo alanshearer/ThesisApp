@@ -18,48 +18,30 @@ namespace _Scavi
 {
     public class ScaviServiceClient
     {
-        //static _Scavi.ScaviServiceReference.ScaviServiceClient service = new _Scavi.ScaviServiceReference.ScaviServiceClient();
-        ServiceReference1.GeoIPServiceSoap service = new ServiceReference1.GeoIPServiceSoapClient();
-        ServiceReference1.GeoIP geoip = null;
+
         String stringToParse = "";
         public Pushpin GetPushpin()
         {
             Pushpin pushpinToBack = new Pushpin();
 
-            object state = "stato";
-
-            service.BeginGetGeoIP("64.233.160.0", MyCallback, service);
-            
-
-            while (geoip==null)
-            {
-                Thread.Sleep(1000);
-            }
+            stringToParse = (new ScaviServiceStub()).GetStub();
 
             //Console.WriteLine(stringToParse);
-            //XDocument document = XDocument.Load(new StringReader(stringToParse));
+            XDocument document = XDocument.Load(new StringReader(stringToParse));
 
-            //var georss = XNamespace.Get("http://www.georss.org/georss");
+            var georss = XNamespace.Get("http://www.georss.org/georss");
 
-            //IEnumerable<Pushpin> event1 = from ev1 in document.Descendants("channel").Elements("item")
-            //                 .Where(e => e.Element(georss + "point") != null)
-            //                                      select new Pushpin
-            //             {
-            //                 GeoCoordinate = new System.Device.Location.GeoCoordinate(Double.Parse(ev1.Element("geo:lat").Value),Double.Parse(ev1.Element("geo:long").Value)),
-            //                 Name = ev1.Element("title").Value,
-            //                 Content = ev1.Element("description").Value
-            //             };
+            var event1 = from ev1 in document.Descendants("channel").Elements("item")
+                             .Where(e => e.Element(georss + "point") != null)
+                                          select new  {
+                     GeoCoordinate = new System.Device.Location.GeoCoordinate(Double.Parse(ev1.Element("geo:lat").Value), Double.Parse(ev1.Element("geo:long").Value)),
+                     Name = ev1.Element("title").Value,
+                     Content = ev1.Element("description").Value
+                 };
 
-            //return event1.ElementAt(0);
+            return new Pushpin { GeoCoordinate = event1.First().GeoCoordinate, Name = event1.First().Name, Content = event1.First().Content };
 
-            return new Pushpin { Name = geoip.IP };
         }
-
-        public void MyCallback(IAsyncResult result)
-        {
-            geoip = service.EndGetGeoIP(result);
-        }
-
 
 
         public async void GetStringToParseMethod()

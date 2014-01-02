@@ -6,18 +6,12 @@
                     maxReceivedMessageSize="2147483647">
                     <security mode="None" />
                 </binding>
-                <binding name="GeoIPServiceSoap" maxBufferSize="2147483647" maxReceivedMessageSize="2147483647">
-                    <security mode="None" />
-                </binding>
             </basicHttpBinding>
         </bindings>
         <client>
             <endpoint address="http://10.2.10.1:9999/ScaviService.svc" binding="basicHttpBinding"
                 bindingConfiguration="BasicHttpBinding_IScaviService" contract="ScaviServiceReference.IScaviService"
                 name="BasicHttpBinding_IScaviService" />
-            <endpoint address="http://www.webservicex.net/geoipservice.asmx"
-                binding="basicHttpBinding" bindingConfiguration="GeoIPServiceSoap"
-                contract="ServiceReference1.GeoIPServiceSoap" name="GeoIPServiceSoap" />
         </client>
     </system.serviceModel>
 </configuration>
