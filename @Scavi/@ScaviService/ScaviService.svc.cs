@@ -1,5 +1,5 @@
 ﻿using _ScaviBiz;
-using _ScaviDataModel.Contracts;
+using _ScaviDataModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

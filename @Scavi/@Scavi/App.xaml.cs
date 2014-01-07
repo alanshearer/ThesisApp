@@ -7,6 +7,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using _Scavi.Resources;
+using Windows.Devices.Geolocation;
 
 namespace _Scavi
 {
@@ -17,6 +18,23 @@ namespace _Scavi
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>
         public static PhoneApplicationFrame RootFrame { get; private set; }
+
+        public static Geolocator Geolocator { get; set; }
+        public static bool RunningInBackground { get; set; }
+
+
+        private void Application_RunningInBackground(object sender, RunningInBackgroundEventArgs args)
+        {
+            RunningInBackground = true;
+            // Suspend all unnecessary processing such as UI updates
+        }
+
+
+        private void Application_Activated(object sender, ActivatedEventArgs e)
+        {
+            RunningInBackground = true;
+        }
+
 
         /// <summary>
         /// Constructor for the Application object.
@@ -63,12 +81,7 @@ namespace _Scavi
         {
         }
 
-        // Code to execute when the application is activated (brought to foreground)
-        // This code will not execute when the application is first launched
-        private void Application_Activated(object sender, ActivatedEventArgs e)
-        {
-        }
-
+        
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)

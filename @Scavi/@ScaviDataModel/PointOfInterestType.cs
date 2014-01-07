@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 
-namespace _ScaviDataModel.Contracts
+namespace _ScaviDataModel
 {
     public enum PointOfInterestTypeEnum
     {

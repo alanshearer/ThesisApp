@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace _ScaviDal
+namespace _ScaviDataModel
 {
     public class GeoPolygon
     {
@@ -22,7 +22,7 @@ namespace _ScaviDal
             points.Add(point);
         }
 
-        public Point GetCenter()
+        public GeoCoordinate GetCenter()
         {
             Double maxLat = Double.MinValue, maxLon = Double.MinValue, minLat = Double.MinValue, minLon = Double.MinValue;
             foreach (GeoCoordinate p in points)
@@ -63,7 +63,7 @@ namespace _ScaviDal
             Double pX = (minLat + maxLat) / 2;
             Double pY = (minLon + maxLon) / 2;
 
-            return new Point(pX, pY);
+            return new GeoCoordinate(pX, pY);
         }
 
         public Boolean IncludePoint(GeoCoordinate point)
