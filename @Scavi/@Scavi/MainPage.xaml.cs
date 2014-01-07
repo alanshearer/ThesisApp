@@ -15,12 +15,16 @@ using Windows.Devices.Geolocation;
 using System.Threading.Tasks;
 using System.IO.IsolatedStorage;
 using System.Windows.Media;
+using _ScaviDataModel;
 
 namespace _Scavi
 {
     public partial class MainPage : PhoneApplicationPage
     {
         ScaviServiceClient client = new ScaviServiceClient();
+
+        PointOfInterest currentpoi = null;
+        protected object Parameter { get; private set; }
 
         // Constructor
         public MainPage()
@@ -145,6 +149,8 @@ namespace _Scavi
 
         void ShowPointsOfInterestButton_Click(object sender, EventArgs e)
         {
+            var dal = new _ScaviDal.FilePointOfInterestDal();
+            dal.GetPointsOfInterest();
             Pushpin positionPushpin = client.GetPushpin();
             positionPushpin.Background = new SolidColorBrush(Colors.Red);
             positionPushpin.Content = "myposition";
@@ -159,6 +165,76 @@ namespace _Scavi
 
             //MessageBox.Show(positionPushpin.Name);
 
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            if (App.Geolocator == null)
+            {
+                App.Geolocator = new Geolocator();
+                App.Geolocator.DesiredAccuracy = PositionAccuracy.High;
+                App.Geolocator.MovementThreshold = 100; // The units are meters.
+                App.Geolocator.PositionChanged += geolocator_PositionChanged;
+            }
+        }
+
+        protected override void OnRemovedFromJournal(System.Windows.Navigation.JournalEntryRemovedEventArgs e)
+        {
+            App.Geolocator.PositionChanged -= geolocator_PositionChanged;
+            App.Geolocator = null;
+        }
+
+        void geolocator_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
+        {
+
+
+
+            if (!App.RunningInBackground)
+            {
+                Dispatcher.BeginInvoke(() =>
+                {
+                    NavigationService.Navigate(new Uri("/Detail.xaml?msg=", UriKind.Relative));
+                });
+            }
+            else
+            {
+                Microsoft.Phone.Shell.ShellToast toast = new Microsoft.Phone.Shell.ShellToast();
+                toast.Content = args.Position.Coordinate.Latitude.ToString("0.00");
+                toast.Title = "Location: ";
+                toast.NavigationUri = new Uri("/Detail.xaml", UriKind.Relative);
+                toast.Show();
+
+            }
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            //e.Content has the reference of the next created page
+            if (e.Content is MainPage)
+            {
+                MainPage page = e.Content as MainPage;
+                if (page != null)
+                { page.SendParameter(currentpoi); currentpoi = null; }
+            }
+        }
+        private void SendParameter(object param)
+        {
+            if (this.Parameter == null)
+            {
+                this.Parameter = param;
+                this.OnParameterReceived();
+            }
+        }
+        protected virtual void OnParameterReceived()
+        {
+            //Override this method in you page. and access the **Parameter** property that
+            // has the object sent from previous page
+        }
+
+        protected void Navigate(string url, object paramter = null)
+        {
+            currentpoi = (PointOfInterest) paramter;
+            this.NavigationService.Navigate(new Uri(url, UriKind.Relative));
         }
        
     }

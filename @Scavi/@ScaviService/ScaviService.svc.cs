@@ -44,8 +44,8 @@ namespace _ScaviService
                 writer.WriteStartElement("item");
                 writer.WriteElementString("title", point.name);
                 writer.WriteElementString("description", point.summary);
-                writer.WriteElementString("geo:lat", point.geocoordinate.Latitude.ToString());
-                writer.WriteElementString("geo:long", point.geocoordinate.Longitude.ToString());
+                writer.WriteElementString("geo:lat", point.center.Latitude.ToString());
+                writer.WriteElementString("geo:long", point.center.Longitude.ToString());
                 writer.WriteEndElement();
                 // } For each loop ends here
                 writer.WriteEndElement();

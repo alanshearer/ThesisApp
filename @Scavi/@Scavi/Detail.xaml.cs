@@ -24,7 +24,7 @@ namespace _Scavi
             {
                 App.Geolocator = new Geolocator();
                 App.Geolocator.DesiredAccuracy = PositionAccuracy.High;
-                App.Geolocator.MovementThreshold = 100; // The units are meters.
+                App.Geolocator.MovementThreshold = 10; // The units are meters.
                 App.Geolocator.PositionChanged += geolocator_PositionChanged;
             }
         }

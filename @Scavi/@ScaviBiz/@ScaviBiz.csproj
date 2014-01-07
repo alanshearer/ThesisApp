@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\%40ScaviDal\%40ScaviDal.csproj">
+      <Project>{be816739-9446-416c-977a-10e276b57734}</Project>
+      <Name>%40ScaviDal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\%40ScaviDataModel\%40ScaviDataModel.csproj">
       <Project>{88e60c2c-9ee9-4f13-8808-4d0563c3f9ef}</Project>
       <Name>%40ScaviDataModel</Name>

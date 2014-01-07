@@ -1,4 +1,5 @@
-﻿using _ScaviDataModel;
+﻿using _ScaviDal;
+using _ScaviDataModel;
 using System;
 using System.Collections.Generic;
 using System.Device.Location;
@@ -11,6 +12,13 @@ namespace _ScaviBiz
 {
     public class PointOfInterestBiz
     {
+
+        private IPointOfInterest dal = null;
+
+        public PointOfInterestBiz()
+        {
+            dal = new FilePointOfInterestGetter();
+        }
         private List<PointOfInterest> GetPointsOfInterest()
         {
             return new List<PointOfInterest>();
@@ -18,7 +26,12 @@ namespace _ScaviBiz
 
         public PointOfInterest GetPointOfInterest()
         {
-            return new PointOfInterest { name = "tempio", summary = "sommario", geocoordinate = new GeoCoordinate(0, 0), type = new PointOfInterestType(PointOfInterestTypeEnum.Casa), uripage = new Uri("http://www.google.it") };
+            return new PointOfInterest { name = "tempio", summary = "sommario", center = new GeoCoordinate(0, 0), type = new PointOfInterestType(PointOfInterestTypeEnum.Casa), uripage = new Uri("http://www.google.it") };
+        }
+
+        public PointOfInterest GetPointOfInterestByPosition(GeoCoordinate coordinate)
+        {
+            return dal.GetPointOfInterestByPosition(coordinate);
         }
 
         //public String GetPointsOfInterestRSS()
