@@ -22,11 +22,22 @@ namespace _Scavi
         public CustomPushpin(PointOfInterest point)
         {
             InitializeComponent();
-            PushpinImage.Source = new BitmapImage(new Uri("/Assets/Tiles/ApplicationIcon.png", UriKind.RelativeOrAbsolute));
+            PushpinImage.Source = GetImageFromPoiType(point.type);
             name = point.name;
             uri = point.uripage;
+            coordinate = point.center;
 
-        } 
+        }
+
+        public BitmapImage GetImageFromPoiType(PointOfInterestType type)
+        {
+            switch (type.type)
+            {
+                default:
+                    return new BitmapImage(new Uri("/Assets/AppIcons/temple.png", UriKind.RelativeOrAbsolute));
+
+            }
+        }
  
     }
 }

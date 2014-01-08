@@ -147,10 +147,10 @@ namespace _Scavi
 
         }
 
-        void ShowPointsOfInterestButton_Click(object sender, EventArgs e)
+        async void ShowPointsOfInterestButton_Click(object sender, EventArgs e)
         {
             var dal = new _ScaviDal.FilePointOfInterestGetter();
-            List<CustomPushpin> pois = dal.GetCustomPushpins();
+            List<CustomPushpin> pois = await dal.GetCustomPushpins();
 
             List<MapOverlay> overlays = new List<MapOverlay>();
             foreach (CustomPushpin poi in pois)
@@ -158,6 +158,7 @@ namespace _Scavi
                 MapOverlay overlay0 = new MapOverlay();
                 overlay0.Content = poi;
                 overlay0.GeoCoordinate = poi.coordinate;
+                overlays.Add(overlay0);
             }
            
 

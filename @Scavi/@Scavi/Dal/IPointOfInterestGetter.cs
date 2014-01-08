@@ -12,12 +12,12 @@ namespace _ScaviDal
 {
     public interface IPointOfInterestGetter
     {
-        List<PointOfInterest> GetPointsOfInterest();
+        Task<List<PointOfInterest>> GetPointsOfInterest();
 
-        List<CustomPushpin> GetCustomPushpins();
+        Task<List<CustomPushpin>> GetCustomPushpins();
 
 
-        PointOfInterest GetPointOfInterestByPosition(GeoCoordinate coordinate);
+        Task<PointOfInterest> GetPointOfInterestByPosition(GeoCoordinate coordinate);
 
     }
 }

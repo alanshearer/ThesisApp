@@ -17,9 +17,9 @@ namespace _ScaviDal
     public class FilePointOfInterestGetter : IPointOfInterestGetter
     {
 
-        public PointOfInterest GetPointOfInterestByPosition(GeoCoordinate coordinate)
+        public async Task<PointOfInterest> GetPointOfInterestByPosition(GeoCoordinate coordinate)
         {
-            List<PointOfInterest> pois = GetPointsOfInterest();
+            List<PointOfInterest> pois = await GetPointsOfInterest();
             foreach (PointOfInterest poi in pois)
             {
                 if (poi.Polygon.IncludePoint(coordinate))
@@ -33,7 +33,7 @@ namespace _ScaviDal
 
         public async Task<Stream> GetStream()
         {
-            StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
+            StorageFolder local = await Windows.Storage.StorageFolder.GetFolderFromPathAsync("./");
 
             if (local != null)
             {
@@ -47,13 +47,14 @@ namespace _ScaviDal
             }
             return null;
         }
-        public List<PointOfInterest> GetPointsOfInterest()
+
+        public async Task<List<PointOfInterest>> GetPointsOfInterest()
         {
             List<PointOfInterest> listToBack = new List<PointOfInterest>();
 
             try
             {
-                Stream stream = GetStream().Result;
+                Stream stream = await GetStream();
                 //Pass the file path and file name to the StreamReader constructor
                 StreamReader sr = new StreamReader(stream);
               
@@ -222,9 +223,9 @@ namespace _ScaviDal
             return listToBack;
         }
 
-        public List<CustomPushpin> GetCustomPushpins()
+        public async Task<List<CustomPushpin>> GetCustomPushpins()
         {
-            List<PointOfInterest> listToParse = GetPointsOfInterest();
+            List<PointOfInterest> listToParse = await GetPointsOfInterest();
             List<CustomPushpin> listToBack = PoisToPushpins(listToParse);
             return listToBack;
         }

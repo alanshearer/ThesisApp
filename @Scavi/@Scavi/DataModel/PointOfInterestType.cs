@@ -15,7 +15,7 @@ namespace _ScaviDataModel
 
     public class PointOfInterestType
     {
-        PointOfInterestTypeEnum type { get; set; }
+        public PointOfInterestTypeEnum type { get; set; }
         public PointOfInterestType(PointOfInterestTypeEnum type)
         {
             this.type = type;
