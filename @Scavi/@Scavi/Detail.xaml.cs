@@ -16,6 +16,23 @@ namespace _Scavi
         public Detail()
         {
             InitializeComponent();
+            if (PhoneApplicationService.Current.State != null)
+            {
+
+
+                if (PhoneApplicationService.Current.State["currentpushpin"] != null)
+                {
+                    CustomPushpin p = PhoneApplicationService.Current.State["currentpushpin"] as CustomPushpin;
+                    FillDetail(p);
+                }
+            }
+
+        }
+
+        public void FillDetail(CustomPushpin p)
+        {
+            detailPage.Text = p.name;
+            WebBrowserBlock.Navigate(p.uri);
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
