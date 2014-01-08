@@ -1,4 +1,6 @@
-﻿using _ScaviDataModel;
+﻿using _Scavi;
+using _ScaviDataModel;
+using Microsoft.Phone.Maps.Toolkit;
 using System;
 using System.Collections.Generic;
 using System.Device.Location;
@@ -12,7 +14,7 @@ using Windows.Storage;
 
 namespace _ScaviDal
 {
-    public class FilePointOfInterestDal : IPointOfInterestGetter
+    public class FilePointOfInterestGetter : IPointOfInterestGetter
     {
 
         public PointOfInterest GetPointOfInterestByPosition(GeoCoordinate coordinate)
@@ -196,6 +198,35 @@ namespace _ScaviDal
             double yToBack = XCoeff * xToBack + AdditionalCoeff;
 
             return new GeoCoordinate(xToBack, yToBack);
+        }
+
+        private CustomPushpin PoiToPushpin(PointOfInterest poi)
+        {
+            String name = poi.name;
+            GeoCoordinate coordinate = poi.center;
+            CustomPushpin pin = new CustomPushpin(poi);
+           
+            return pin;
+
+        }
+
+
+        private List<CustomPushpin> PoisToPushpins(List<PointOfInterest> pois)
+        {
+            List<CustomPushpin> listToBack = new List<CustomPushpin>();
+            foreach (PointOfInterest poi in pois)
+            {
+                listToBack.Add(PoiToPushpin(poi));
+            }
+
+            return listToBack;
+        }
+
+        public List<CustomPushpin> GetCustomPushpins()
+        {
+            List<PointOfInterest> listToParse = GetPointsOfInterest();
+            List<CustomPushpin> listToBack = PoisToPushpins(listToParse);
+            return listToBack;
         }
 
     }

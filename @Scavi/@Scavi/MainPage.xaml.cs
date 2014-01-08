@@ -149,19 +149,24 @@ namespace _Scavi
 
         void ShowPointsOfInterestButton_Click(object sender, EventArgs e)
         {
-            var dal = new _ScaviDal.FilePointOfInterestDal();
-            dal.GetPointsOfInterest();
-            Pushpin positionPushpin = client.GetPushpin();
-            positionPushpin.Background = new SolidColorBrush(Colors.Red);
-            positionPushpin.Content = "myposition";
-            MapOverlay overlay0 = new MapOverlay();
-            overlay0.Content = positionPushpin;
-            overlay0.GeoCoordinate = positionPushpin.GeoCoordinate;
+            var dal = new _ScaviDal.FilePointOfInterestGetter();
+            List<CustomPushpin> pois = dal.GetCustomPushpins();
+
+            List<MapOverlay> overlays = new List<MapOverlay>();
+            foreach (CustomPushpin poi in pois)
+            {
+                MapOverlay overlay0 = new MapOverlay();
+                overlay0.Content = poi;
+                overlay0.GeoCoordinate = poi.coordinate;
+            }
+           
 
             MapLayer positionLayer = new MapLayer();
-            positionLayer.Add(overlay0);
+            foreach (var overlay in overlays)
+            {
+                positionLayer.Add(overlay);
+            }
             myMap.Layers.Add(positionLayer);
-            myMap.Center = positionPushpin.GeoCoordinate;
 
             //MessageBox.Show(positionPushpin.Name);
 
