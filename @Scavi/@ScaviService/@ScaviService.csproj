@@ -61,6 +61,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GeoRssFile1.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ScaviService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>

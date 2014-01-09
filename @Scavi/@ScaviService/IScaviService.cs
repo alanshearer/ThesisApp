@@ -17,9 +17,13 @@ namespace _ScaviService
         [OperationContract]
         String GetPointsOfInterestRSS();
 
-        //[OperationContract(AsyncPattern=true)]
-        //IAsyncResult BeginGetPointOfInterestRSS(AsyncCallback callback, object state);
-        //string EndGetPointOfInterestRSS(IAsyncResult result);
+        [OperationContract]
+        void SetFeedback(int Id, double feedackVote, String feedbackString);
 
+        [OperationContract]
+        double getFeedback(int Id);
+
+        [OperationContract]
+        void GetTrack();
     }
 }
