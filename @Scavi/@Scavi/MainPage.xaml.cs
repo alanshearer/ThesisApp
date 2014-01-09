@@ -103,6 +103,15 @@ namespace _Scavi
             // Create a new menu item with the localized string from AppResources.
             //ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
             //ApplicationBar.MenuItems.Add(appBarMenuItem);
+            ScaviServiceReference.ScaviServiceClient clientForTesting = new ScaviServiceReference.ScaviServiceClient();
+            clientForTesting.GetPointsOfInterestRSSCompleted += new EventHandler<ScaviServiceReference.GetPointsOfInterestRSSCompletedEventArgs>(calculateCallback);
+            clientForTesting.GetPointsOfInterestRSSAsync();
+        }
+
+        private void calculateCallback(object sender, ScaviServiceReference.GetPointsOfInterestRSSCompletedEventArgs e)
+        {
+
+            MessageBox.Show(e.Result.ToString());
         }
 
 

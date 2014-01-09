@@ -20,12 +20,12 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://10.2.10.1:9999/ScaviService.svc?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://169.254.64.225:9999/ScaviService.svc?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ScaviService.wsdl" MetadataType="Wsdl" ID="8348fa28-3064-423e-a053-df05cf65009a" SourceId="1" SourceUrl="http://10.2.10.1:9999/ScaviService.svc?wsdl" />
-    <MetadataFile FileName="ScaviService.xsd" MetadataType="Schema" ID="696dc78a-db95-44bf-b1c6-a10130741ef4" SourceId="1" SourceUrl="http://10.2.10.1:9999/ScaviService.svc?xsd=xsd0" />
-    <MetadataFile FileName="ScaviService1.xsd" MetadataType="Schema" ID="d4b56d69-f4b8-432f-8627-54be9934c070" SourceId="1" SourceUrl="http://10.2.10.1:9999/ScaviService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ScaviService.xsd" MetadataType="Schema" ID="ce2f70ce-e63a-415d-b5a6-29f34de27fc8" SourceId="1" SourceUrl="http://169.254.64.225:9999/ScaviService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ScaviService.wsdl" MetadataType="Wsdl" ID="e689a1af-3e37-4fc5-b365-362034f34743" SourceId="1" SourceUrl="http://169.254.64.225:9999/ScaviService.svc?wsdl" />
+    <MetadataFile FileName="ScaviService1.xsd" MetadataType="Schema" ID="53e4c1a6-bb46-4f30-9766-3bb95e53ae10" SourceId="1" SourceUrl="http://169.254.64.225:9999/ScaviService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

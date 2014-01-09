@@ -26,50 +26,52 @@ namespace _ScaviService
         public String GetPointsOfInterestRSS()
         {
 
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-            StringBuilder builder = new StringBuilder();
+            //XmlWriterSettings settings = new XmlWriterSettings();
+            //settings.Indent = true;
+            //StringBuilder builder = new StringBuilder();
 
-            PointOfInterest point = biz.GetPointOfInterest();
+            //PointOfInterest point = biz.GetPointOfInterest();
 
-            using (XmlWriter writer = XmlWriter.Create(builder, settings))
-            {
-                writer.WriteStartDocument();
-                writer.WriteStartElement("rss");
-                writer.WriteAttributeString("version", "2.0");
-                writer.WriteAttributeString("xmlns:geo", "http://www.w3.org/2003/01/geo/wgs84_pos#");
-                writer.WriteStartElement("channel");
-                //if geoRSSds is not null and rows count >0 then
-                //For each loop for geoRSSds starts here {
-                writer.WriteStartElement("item");
-                writer.WriteElementString("title", point.name);
-                writer.WriteElementString("description", point.summary);
-                writer.WriteElementString("geo:lat", point.center.Latitude.ToString());
-                writer.WriteElementString("geo:long", point.center.Longitude.ToString());
-                writer.WriteEndElement();
-                // } For each loop ends here
-                writer.WriteEndElement();
-                writer.WriteEndDocument();
-                writer.Close();
-            }
-            return builder.ToString();
+            //using (XmlWriter writer = XmlWriter.Create(builder, settings))
+            //{
+            //    writer.WriteStartDocument();
+            //    writer.WriteStartElement("rss");
+            //    writer.WriteAttributeString("version", "2.0");
+            //    writer.WriteAttributeString("xmlns:geo", "http://www.w3.org/2003/01/geo/wgs84_pos#");
+            //    writer.WriteStartElement("channel");
+            //    //if geoRSSds is not null and rows count >0 then
+            //    //For each loop for geoRSSds starts here {
+            //    writer.WriteStartElement("item");
+            //    writer.WriteElementString("title", point.name);
+            //    writer.WriteElementString("description", point.summary);
+            //    writer.WriteElementString("geo:lat", point.center.Latitude.ToString());
+            //    writer.WriteElementString("geo:long", point.center.Longitude.ToString());
+            //    writer.WriteEndElement();
+            //    // } For each loop ends here
+            //    writer.WriteEndElement();
+            //    writer.WriteEndDocument();
+            //    writer.Close();
+            //}
+            //return builder.ToString();
 
-        }
-
-        public IAsyncResult BeginGetPointOfInterestRSS(AsyncCallback callback, object state)
-        {
-            Func<String> invokeOperation = () => GetPointsOfInterestRSS();
-            return invokeOperation.BeginInvoke(callback, state);
+            return "Stringa";
 
         }
-        public string EndGetPointOfInterestRSS(IAsyncResult result)
-        {
-            var asyncResult = (System.Runtime.Remoting.Messaging.AsyncResult)result;
 
-            var func = (Func<String>)asyncResult.AsyncDelegate;
+        //public IAsyncResult BeginGetPointOfInterestRSS(AsyncCallback callback, object state)
+        //{
+        //    Func<String> invokeOperation = () => GetPointsOfInterestRSS();
+        //    return invokeOperation.BeginInvoke(callback, state);
 
-            return func.EndInvoke(result);
-        }
+        //}
+        //public string EndGetPointOfInterestRSS(IAsyncResult result)
+        //{
+        //    var asyncResult = (System.Runtime.Remoting.Messaging.AsyncResult)result;
+
+        //    var func = (Func<String>)asyncResult.AsyncDelegate;
+
+        //    return func.EndInvoke(result);
+        //}
 
 
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="3zG9vR8Y+oOqU6ui/LBzRMZJSLI=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="+rEYIKO9Oj9SUoiJO9B28wyQlJs=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_IScaviService">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_IScaviService" contract="ScaviServiceReference.IScaviService" bindingType="basicHttpBinding" address="http://10.2.10.1:9999/ScaviService.svc" bindingConfiguration="BasicHttpBinding_IScaviService">
+    <endpoint name="BasicHttpBinding_IScaviService" contract="ScaviServiceReference.IScaviService" bindingType="basicHttpBinding" address="http://169.254.64.225:9999/ScaviService.svc" bindingConfiguration="BasicHttpBinding_IScaviService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://10.2.10.1:9999/ScaviService.svc</serializedValue>
+          <serializedValue>http://169.254.64.225:9999/ScaviService.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

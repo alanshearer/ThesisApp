@@ -20,7 +20,7 @@ namespace _Scavi
             {
 
 
-                if (PhoneApplicationService.Current.State["currentpushpin"] != null)
+                if (PhoneApplicationService.Current.State.ContainsKey("currentpushpin"))
                 {
                     CustomPushpin p = PhoneApplicationService.Current.State["currentpushpin"] as CustomPushpin;
                     FillDetail(p);
@@ -62,7 +62,7 @@ namespace _Scavi
                 {
                     LatitudeTextBlock.Text = args.Position.Coordinate.Latitude.ToString("0.00");
                     LongitudeTextBlock.Text = args.Position.Coordinate.Longitude.ToString("0.00");
-                    WebBrowserBlock.Navigate(new Uri(""));
+                    //WebBrowserBlock.Navigate(new Uri(""));
                 });
             }
             else
