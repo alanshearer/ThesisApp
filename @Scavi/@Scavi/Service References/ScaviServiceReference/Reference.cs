@@ -22,6 +22,16 @@ namespace _Scavi.ScaviServiceReference {
         System.IAsyncResult BeginGetPointsOfInterestRSS(System.AsyncCallback callback, object asyncState);
         
         string EndGetPointsOfInterestRSS(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IScaviService/SetFeedback", ReplyAction="http://tempuri.org/IScaviService/SetFeedbackResponse")]
+        System.IAsyncResult BeginSetFeedback(int Id, double feedackVote, string feedbackString, System.AsyncCallback callback, object asyncState);
+        
+        void EndSetFeedback(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IScaviService/GetTrack", ReplyAction="http://tempuri.org/IScaviService/GetTrackResponse")]
+        System.IAsyncResult BeginGetTrack(System.AsyncCallback callback, object asyncState);
+        
+        void EndGetTrack(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -56,6 +66,18 @@ namespace _Scavi.ScaviServiceReference {
         private EndOperationDelegate onEndGetPointsOfInterestRSSDelegate;
         
         private System.Threading.SendOrPostCallback onGetPointsOfInterestRSSCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginSetFeedbackDelegate;
+        
+        private EndOperationDelegate onEndSetFeedbackDelegate;
+        
+        private System.Threading.SendOrPostCallback onSetFeedbackCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetTrackDelegate;
+        
+        private EndOperationDelegate onEndGetTrackDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetTrackCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -112,6 +134,10 @@ namespace _Scavi.ScaviServiceReference {
         
         public event System.EventHandler<GetPointsOfInterestRSSCompletedEventArgs> GetPointsOfInterestRSSCompleted;
         
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> SetFeedbackCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> GetTrackCompleted;
+        
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> CloseCompleted;
@@ -158,6 +184,98 @@ namespace _Scavi.ScaviServiceReference {
                 this.onGetPointsOfInterestRSSCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPointsOfInterestRSSCompleted);
             }
             base.InvokeAsync(this.onBeginGetPointsOfInterestRSSDelegate, null, this.onEndGetPointsOfInterestRSSDelegate, this.onGetPointsOfInterestRSSCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult _Scavi.ScaviServiceReference.IScaviService.BeginSetFeedback(int Id, double feedackVote, string feedbackString, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginSetFeedback(Id, feedackVote, feedbackString, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        void _Scavi.ScaviServiceReference.IScaviService.EndSetFeedback(System.IAsyncResult result) {
+            base.Channel.EndSetFeedback(result);
+        }
+        
+        private System.IAsyncResult OnBeginSetFeedback(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int Id = ((int)(inValues[0]));
+            double feedackVote = ((double)(inValues[1]));
+            string feedbackString = ((string)(inValues[2]));
+            return ((_Scavi.ScaviServiceReference.IScaviService)(this)).BeginSetFeedback(Id, feedackVote, feedbackString, callback, asyncState);
+        }
+        
+        private object[] OnEndSetFeedback(System.IAsyncResult result) {
+            ((_Scavi.ScaviServiceReference.IScaviService)(this)).EndSetFeedback(result);
+            return null;
+        }
+        
+        private void OnSetFeedbackCompleted(object state) {
+            if ((this.SetFeedbackCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.SetFeedbackCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void SetFeedbackAsync(int Id, double feedackVote, string feedbackString) {
+            this.SetFeedbackAsync(Id, feedackVote, feedbackString, null);
+        }
+        
+        public void SetFeedbackAsync(int Id, double feedackVote, string feedbackString, object userState) {
+            if ((this.onBeginSetFeedbackDelegate == null)) {
+                this.onBeginSetFeedbackDelegate = new BeginOperationDelegate(this.OnBeginSetFeedback);
+            }
+            if ((this.onEndSetFeedbackDelegate == null)) {
+                this.onEndSetFeedbackDelegate = new EndOperationDelegate(this.OnEndSetFeedback);
+            }
+            if ((this.onSetFeedbackCompletedDelegate == null)) {
+                this.onSetFeedbackCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnSetFeedbackCompleted);
+            }
+            base.InvokeAsync(this.onBeginSetFeedbackDelegate, new object[] {
+                        Id,
+                        feedackVote,
+                        feedbackString}, this.onEndSetFeedbackDelegate, this.onSetFeedbackCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult _Scavi.ScaviServiceReference.IScaviService.BeginGetTrack(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetTrack(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        void _Scavi.ScaviServiceReference.IScaviService.EndGetTrack(System.IAsyncResult result) {
+            base.Channel.EndGetTrack(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetTrack(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return ((_Scavi.ScaviServiceReference.IScaviService)(this)).BeginGetTrack(callback, asyncState);
+        }
+        
+        private object[] OnEndGetTrack(System.IAsyncResult result) {
+            ((_Scavi.ScaviServiceReference.IScaviService)(this)).EndGetTrack(result);
+            return null;
+        }
+        
+        private void OnGetTrackCompleted(object state) {
+            if ((this.GetTrackCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetTrackCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetTrackAsync() {
+            this.GetTrackAsync(null);
+        }
+        
+        public void GetTrackAsync(object userState) {
+            if ((this.onBeginGetTrackDelegate == null)) {
+                this.onBeginGetTrackDelegate = new BeginOperationDelegate(this.OnBeginGetTrack);
+            }
+            if ((this.onEndGetTrackDelegate == null)) {
+                this.onEndGetTrackDelegate = new EndOperationDelegate(this.OnEndGetTrack);
+            }
+            if ((this.onGetTrackCompletedDelegate == null)) {
+                this.onGetTrackCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTrackCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetTrackDelegate, null, this.onEndGetTrackDelegate, this.onGetTrackCompletedDelegate, userState);
         }
         
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -246,6 +364,31 @@ namespace _Scavi.ScaviServiceReference {
                 object[] _args = new object[0];
                 string _result = ((string)(base.EndInvoke("GetPointsOfInterestRSS", _args, result)));
                 return _result;
+            }
+            
+            public System.IAsyncResult BeginSetFeedback(int Id, double feedackVote, string feedbackString, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[3];
+                _args[0] = Id;
+                _args[1] = feedackVote;
+                _args[2] = feedbackString;
+                System.IAsyncResult _result = base.BeginInvoke("SetFeedback", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public void EndSetFeedback(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                base.EndInvoke("SetFeedback", _args, result);
+            }
+            
+            public System.IAsyncResult BeginGetTrack(System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[0];
+                System.IAsyncResult _result = base.BeginInvoke("GetTrack", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public void EndGetTrack(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                base.EndInvoke("GetTrack", _args, result);
             }
         }
     }

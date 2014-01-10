@@ -21,9 +21,6 @@ namespace _ScaviService
         void SetFeedback(int Id, double feedackVote, String feedbackString);
 
         [OperationContract]
-        double getFeedback(int Id);
-
-        [OperationContract]
         void GetTrack();
     }
 }

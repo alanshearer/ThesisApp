@@ -54,17 +54,12 @@ namespace _ScaviService
             //}
             //return builder.ToString();
 
-            return "stringa";
+            return biz.GetPointsOfInterest();
         }
 
         public void SetFeedback(int Id, double feedackVote, String feedbackString)
         {
 
-        }
-
-        public double getFeedback(int Id)
-        {
-            return 0;
         }
 
         public void GetTrack()

@@ -12,16 +12,54 @@
   <wsdl:message name="IScaviService_GetPointsOfInterestRSS_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPointsOfInterestRSSResponse" />
   </wsdl:message>
+  <wsdl:message name="IScaviService_SetFeedback_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetFeedback" />
+  </wsdl:message>
+  <wsdl:message name="IScaviService_SetFeedback_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetFeedbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IScaviService_GetTrack_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTrack" />
+  </wsdl:message>
+  <wsdl:message name="IScaviService_GetTrack_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTrackResponse" />
+  </wsdl:message>
   <wsdl:portType name="IScaviService">
     <wsdl:operation name="GetPointsOfInterestRSS">
       <wsdl:input wsaw:Action="http://tempuri.org/IScaviService/GetPointsOfInterestRSS" message="tns:IScaviService_GetPointsOfInterestRSS_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IScaviService/GetPointsOfInterestRSSResponse" message="tns:IScaviService_GetPointsOfInterestRSS_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetFeedback">
+      <wsdl:input wsaw:Action="http://tempuri.org/IScaviService/SetFeedback" message="tns:IScaviService_SetFeedback_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IScaviService/SetFeedbackResponse" message="tns:IScaviService_SetFeedback_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTrack">
+      <wsdl:input wsaw:Action="http://tempuri.org/IScaviService/GetTrack" message="tns:IScaviService_GetTrack_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IScaviService/GetTrackResponse" message="tns:IScaviService_GetTrack_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IScaviService" type="tns:IScaviService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetPointsOfInterestRSS">
       <soap:operation soapAction="http://tempuri.org/IScaviService/GetPointsOfInterestRSS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetFeedback">
+      <soap:operation soapAction="http://tempuri.org/IScaviService/SetFeedback" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrack">
+      <soap:operation soapAction="http://tempuri.org/IScaviService/GetTrack" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

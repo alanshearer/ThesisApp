@@ -19,48 +19,59 @@ namespace _ScaviBiz
         {
             dal = new FilePointOfInterestGetter();
         }
-        private List<PointOfInterest> GetPointsOfInterest()
+        public String GetPointsOfInterest()
         {
-            return new List<PointOfInterest>();
+            List<PointOfInterest> listToGeoRSS = dal.GetPointsOfInterest();
+
+            return GeoRSSFromListPois(listToGeoRSS);
         }
 
-        public PointOfInterest GetPointOfInterest()
+        public void SetFeedback(int ID, Double vote, String Motivation)
         {
-            return new PointOfInterest { name = "tempio", summary = "sommario", center = new GeoCoordinate(0, 0), type = new PointOfInterestType(PointOfInterestTypeEnum.Casa), uripage = new Uri("http://www.google.it") };
+            dal.SetFeedback(ID, vote, Motivation);
         }
 
-        public PointOfInterest GetPointOfInterestByPosition(GeoCoordinate coordinate)
+        private String GeoRSSFromListPois(List<PointOfInterest> list)
         {
-            return dal.GetPointOfInterestByPosition(coordinate);
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            StringBuilder builder = new StringBuilder();
+
+
+            using (XmlWriter writer = XmlWriter.Create(builder, settings))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("entries");
+                writer.WriteAttributeString( "georss", "xmlns", "http://www.georss.org/georss");
+                //if geoRSSds is not null and rows count >0 then
+                //For each loop for geoRSSds starts here {
+                foreach (PointOfInterest poi in list)
+                {
+                    writer.WriteStartElement("entry");
+                    writer.WriteElementString("ID", poi.ID.ToString());
+                    writer.WriteElementString("name", poi.name);
+                    writer.WriteElementString("url", poi.uripage);
+                    writer.WriteElementString("summary", poi.summary);
+                    writer.WriteElementString("tipology", poi.type);
+                    writer.WriteElementString("rating", poi.rating.ToString());
+                    writer.WriteStartElement("polygon", "georss");
+                    foreach (GeoCoordinate coordinate in poi.Polygon.points)
+                    {
+                        writer.WriteStartElement("point", "georss");
+                        writer.WriteElementString("lat", "georss", coordinate.Latitude.ToString());
+                        writer.WriteElementString("lon", "georss", coordinate.Longitude.ToString());
+                        writer.WriteEndElement();
+                    }
+                    writer.WriteEndElement();
+                    writer.WriteEndElement();
+                }
+                // } For each loop ends here
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+                writer.Close();
+            }
+            return builder.ToString();
         }
 
-        //public String GetPointsOfInterestRSS()
-        //{
-
-        //    XmlWriterSettings settings = new XmlWriterSettings();
-        //    settings.Indent = true;
-        //    StringBuilder builder = new StringBuilder();
-
-        //    using (XmlWriter writer = XmlWriter.Create(builder, settings))
-        //    {
-        //        writer.WriteStartDocument();
-        //        writer.WriteStartElement("rss");
-        //        writer.WriteAttributeString("version", "2.0");
-        //        writer.WriteAttributeString("xmlns:geo", "http://www.w3.org/2003/01/geo/wgs84_pos#");
-        //        writer.WriteStartElement("channel");
-        //        //if geoRSSds is not null and rows count >0 then
-        //        //For each loop for geoRSSds starts here {
-        //        writer.WriteStartElement("item");
-        //        writer.WriteElementString("title", pointName);
-        //        writer.WriteElementString("description", pointDescription);
-        //        writer.WriteElementString("geo:lat", geoLat);
-        //        writer.WriteElementString("geo:long", geoLong);
-        //        writer.WriteEndElement();
-        //        // } For each loop ends here
-        //        writer.WriteEndElement();
-        //        writer.WriteEndDocument();
-        //        writer.Close();
-        //    }
-        //}
     }
 }
