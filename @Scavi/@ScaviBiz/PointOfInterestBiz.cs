@@ -54,12 +54,12 @@ namespace _ScaviBiz
                     writer.WriteElementString("summary", poi.summary);
                     writer.WriteElementString("tipology", poi.type);
                     writer.WriteElementString("rating", poi.rating.ToString());
-                    writer.WriteStartElement("polygon", "georss", "xmlns");
+                    writer.WriteStartElement("polygon");
                     foreach (GeoCoordinate coordinate in poi.Polygon.points)
                     {
-                        writer.WriteStartElement("point", "georss");
-                        writer.WriteElementString("lat", "georss", coordinate.Latitude.ToString());
-                        writer.WriteElementString("lon", "georss", coordinate.Longitude.ToString());
+                        writer.WriteStartElement("point");
+                        writer.WriteElementString("lat", coordinate.Latitude.ToString());
+                        writer.WriteElementString("lon", coordinate.Longitude.ToString());
                         writer.WriteEndElement();
                     }
                     writer.WriteEndElement();

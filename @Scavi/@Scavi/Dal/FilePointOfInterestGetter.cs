@@ -132,17 +132,20 @@ namespace _ScaviDal
 
                         foreach (XElement point in points)
                         {
-                            Double lat =0 , lon=0;
-                           if (el.Element("lat") != null)
-                           {
-                               lat = Double.Parse(point.Element("lat").Value, CultureInfo.InvariantCulture);
-                           }
-                           if (el.Element("lon") != null)
-                           {
-                               lon = Double.Parse(point.Element("lon").Value, CultureInfo.InvariantCulture);
-                           }
+                            Double lat = 0, lon = 0;
+                            NumberFormatInfo numberFormat = new NumberFormatInfo();
+                            numberFormat.NumberDecimalSeparator = ",";
 
-                           realpolygon.Add(new GeoCoordinate(lat, lon));
+                            if (point.Element("lat") != null)
+                            {
+                                lat = Convert.ToDouble(point.Element("lat").Value, numberFormat);
+                            }
+                            if (point.Element("lon") != null)
+                            {
+                                lon = Convert.ToDouble(point.Element("lon").Value, numberFormat);
+                            }
+
+                            realpolygon.Add(new GeoCoordinate(lat, lon));
 
                         }
                         //List<String> elementcoordinateStrings = el.Element(georss + "polygon").Value.Split(' ').ToList();

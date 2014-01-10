@@ -5,6 +5,6 @@
   <description>@Scavi</description>
   <icon>appicon.png</icon>
 
-  <!-- Uncomment and update the <configurationFile> element if your map app includes a configuration file -->
+  <!-Uncomment and update the <configurationFile> element if your map app includes a configuration file -->
   <!--<configurationFile>myapp.config.xml</configurationFile>-->
 </mapAppDescription>

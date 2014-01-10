@@ -163,6 +163,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="Assets\AppIcons\temple.png" />
+    <Content Include="Dal\Georss.xml" />
     <Content Include="GeoRSS\GeoRssFile1.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -210,6 +211,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
