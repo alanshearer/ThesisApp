@@ -1,4 +1,5 @@
 ﻿using _Scavi;
+using _Scavi.ScaviServiceReference;
 using _ScaviDataModel;
 using Microsoft.Phone.Maps.Toolkit;
 using System;
@@ -8,6 +9,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage;
@@ -16,7 +18,7 @@ namespace _ScaviDal
 {
     public class FilePointOfInterestGetter : IPointOfInterestGetter
     {
-
+        String poisString = null;
         public async Task<PointOfInterest> GetPointOfInterestByPosition(GeoCoordinate coordinate)
         {
             List<PointOfInterest> pois = await GetPointsOfInterest();
@@ -47,6 +49,25 @@ namespace _ScaviDal
             }
             return null;
         }
+        public String GetString()
+        {
+            _Scavi.ScaviServiceReference.ScaviServiceClient clientForTesting = new _Scavi.ScaviServiceReference.ScaviServiceClient();
+            clientForTesting.GetPointsOfInterestRSSCompleted += new EventHandler<_Scavi.ScaviServiceReference.GetPointsOfInterestRSSCompletedEventArgs>(calculateCallback);
+            clientForTesting.GetPointsOfInterestRSSAsync();
+            while (poisString == null)
+            {
+                Thread.Sleep(100);
+            }
+
+            return poisString;
+        }
+
+        private void calculateCallback(object sender, _Scavi.ScaviServiceReference.GetPointsOfInterestRSSCompletedEventArgs e)
+        {
+            poisString = e.Result;
+
+        }
+
 
         public async Task<List<PointOfInterest>> GetPointsOfInterest()
         {
@@ -54,13 +75,15 @@ namespace _ScaviDal
 
             try
             {
-                Stream stream = await GetStream();
-                //Pass the file path and file name to the StreamReader constructor
-                StreamReader sr = new StreamReader(stream);
-              
+                //Stream stream = await GetStream();
+                ////Pass the file path and file name to the StreamReader constructor
+                //StreamReader sr = new StreamReader(stream);
+
+                String str = GetString();
+
                 XNamespace georss = XNamespace.Get("http://www.georss.org/georss");
                 
-                XDocument document = XDocument.Load(sr);
+                XDocument document = XDocument.Load(str);
                 XElement mainel = document.Root;
                 IEnumerable<XElement> elements = from el in mainel.Descendants("entry") select el;
                
@@ -152,7 +175,7 @@ namespace _ScaviDal
 
                 }
 
-                sr.Close();
+                //sr.Close();
 
                 return listToBack;
             }

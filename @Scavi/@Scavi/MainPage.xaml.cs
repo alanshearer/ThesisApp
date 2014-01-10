@@ -23,7 +23,14 @@ namespace _Scavi
     {
         ScaviServiceClient client = new ScaviServiceClient();
 
+        MapLayer positionLayer { get; set; }
+
+        MapLayer poisLayer { get; set; }
+
+        List<PointOfInterest> poiList = null;
+
         PointOfInterest currentpoi = null;
+        
         protected object Parameter { get; private set; }
 
         // Constructor
@@ -31,38 +38,40 @@ namespace _Scavi
         {
 
             InitializeComponent();
+
+            
             //Map myMap = new Map();
             //this.myMap = new Map();
-            MapLayer layer0 = new MapLayer();
+            //MapLayer layer0 = new MapLayer();
 
-            this.myMap.Layers.Add(layer0);
+            //this.myMap.Layers.Add(layer0);
 
-            Pushpin pushpin0 = new Pushpin();
-            //Pushpin pushpin0 = (Pushpin)this.FindName("pushpin0");
-            //Pushpin pushpin0 = MapExtensions.GetChildren(myMap).OfType<Pushpin>().First(p => p.Name == "pushpin0");
-            //if (pushpin0 == null) { pushpin0 = new Pushpin(); }
-            pushpin0.GeoCoordinate = new GeoCoordinate(37.228510, -80.422860);
-            MapOverlay overlay0 = new MapOverlay();
-            overlay0.Content = pushpin0;
-            overlay0.GeoCoordinate = pushpin0.GeoCoordinate;
-            layer0.Add(overlay0);
+            //Pushpin pushpin0 = new Pushpin();
+            ////Pushpin pushpin0 = (Pushpin)this.FindName("pushpin0");
+            ////Pushpin pushpin0 = MapExtensions.GetChildren(myMap).OfType<Pushpin>().First(p => p.Name == "pushpin0");
+            ////if (pushpin0 == null) { pushpin0 = new Pushpin(); }
+            //pushpin0.GeoCoordinate = new GeoCoordinate(37.228510, -80.422860);
+            //MapOverlay overlay0 = new MapOverlay();
+            //overlay0.Content = pushpin0;
+            //overlay0.GeoCoordinate = pushpin0.GeoCoordinate;
+            //layer0.Add(overlay0);
 
-            Pushpin pushpin1 = new Pushpin();
-            pushpin1.GeoCoordinate = new GeoCoordinate(37.726399, -80.425271);
-            MapOverlay overlay1 = new MapOverlay();
-            overlay1.Content = pushpin1;
-            overlay1.GeoCoordinate = pushpin1.GeoCoordinate;
-            layer0.Add(overlay1);
+            //Pushpin pushpin1 = new Pushpin();
+            //pushpin1.GeoCoordinate = new GeoCoordinate(37.726399, -80.425271);
+            //MapOverlay overlay1 = new MapOverlay();
+            //overlay1.Content = pushpin1;
+            //overlay1.GeoCoordinate = pushpin1.GeoCoordinate;
+            //layer0.Add(overlay1);
 
-            Pushpin pushpin2 = new Pushpin();
-            pushpin2.GeoCoordinate = new GeoCoordinate(37.928900, -80.427450);
-            MapOverlay overlay2 = new MapOverlay();
-            overlay2.Content = pushpin2;
-            overlay2.GeoCoordinate = pushpin2.GeoCoordinate;
-            layer0.Add(overlay2);
+            //Pushpin pushpin2 = new Pushpin();
+            //pushpin2.GeoCoordinate = new GeoCoordinate(37.928900, -80.427450);
+            //MapOverlay overlay2 = new MapOverlay();
+            //overlay2.Content = pushpin2;
+            //overlay2.GeoCoordinate = pushpin2.GeoCoordinate;
+            //layer0.Add(overlay2);
 
-            myMap.Center = new GeoCoordinate(40.916667, 14.416667);
-            myMap.ZoomLevel = 13;
+            //myMap.Center = new GeoCoordinate(40.916667, 14.416667);
+            //myMap.ZoomLevel = 13;
 
             //ContentPanel.Children.Add(this.myMap);
 
@@ -103,17 +112,7 @@ namespace _Scavi
             // Create a new menu item with the localized string from AppResources.
             //ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
             //ApplicationBar.MenuItems.Add(appBarMenuItem);
-            ScaviServiceReference.ScaviServiceClient clientForTesting = new ScaviServiceReference.ScaviServiceClient();
-            clientForTesting.GetPointsOfInterestRSSCompleted += new EventHandler<ScaviServiceReference.GetPointsOfInterestRSSCompletedEventArgs>(calculateCallback);
-            clientForTesting.GetPointsOfInterestRSSAsync();
         }
-
-        private void calculateCallback(object sender, ScaviServiceReference.GetPointsOfInterestRSSCompletedEventArgs e)
-        {
-
-            MessageBox.Show(e.Result.ToString());
-        }
-
 
 
         void ZoomInButton_Click(object sender, EventArgs e)
@@ -136,20 +135,29 @@ namespace _Scavi
 
         async void CenterMapButton_Click(object sender, EventArgs e)
         {
+            if (positionLayer==null)
+            {
+                positionLayer = new MapLayer();
+            }
+            else
+            {
+                for (int i=0; i< positionLayer.Count; i++)
+                {
+                    positionLayer.RemoveAt(i);
+                }
+                myMap.Layers.Remove(positionLayer);
+            }
             GeoCoordinate position = new GeoCoordinate();
             GeoCoordinate PositionGotten = await client.GetPosition();
             position = PositionGotten;
 
             Pushpin positionPushpin = new Pushpin();
-            //positionPushpin.Background = new SolidColorBrush(Colors.Red);
-            //positionPushpin.Content = "myposition";
             positionPushpin.GeoCoordinate = position;
             MapOverlay overlay0 = new MapOverlay();
             overlay0.Content = positionPushpin;
             overlay0.GeoCoordinate = positionPushpin.GeoCoordinate;
-           
-            MapLayer positionLayer = new MapLayer();
             positionLayer.Add(overlay0);
+
             myMap.Layers.Add(positionLayer);
             myMap.Center = positionPushpin.GeoCoordinate;
 
@@ -158,27 +166,39 @@ namespace _Scavi
 
         async void ShowPointsOfInterestButton_Click(object sender, EventArgs e)
         {
+            if (poisLayer == null)
+            {
+                poisLayer = new MapLayer();
+            }
+            else
+            {
+                for (int i = 0; i < poisLayer.Count; i++)
+                {
+                    poisLayer.RemoveAt(i);
+                }
+                myMap.Layers.Remove(poisLayer);
+            }
+
             var dal = new _ScaviDal.FilePointOfInterestGetter();
-            List<CustomPushpin> pois = await dal.GetCustomPushpins();
+            poiList = await dal.GetPointsOfInterest();
+
+            List<CustomPushpin> pushpinList = await dal.GetCustomPushpins();
 
             List<MapOverlay> overlays = new List<MapOverlay>();
-            foreach (CustomPushpin poi in pois)
+            foreach (CustomPushpin pushpin in pushpinList)
             {
                 MapOverlay overlay0 = new MapOverlay();
-                overlay0.Content = poi;
-                overlay0.GeoCoordinate = poi.coordinate;
+                overlay0.Content = pushpin;
+                overlay0.GeoCoordinate = pushpin.coordinate;
                 overlays.Add(overlay0);
             }
            
 
-            MapLayer positionLayer = new MapLayer();
             foreach (var overlay in overlays)
             {
-                positionLayer.Add(overlay);
+                poisLayer.Add(overlay);
             }
-            myMap.Layers.Add(positionLayer);
-
-            //MessageBox.Show(positionPushpin.Name);
+            myMap.Layers.Add(poisLayer);
 
         }
 
@@ -201,25 +221,38 @@ namespace _Scavi
 
         void geolocator_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
         {
+            Double lat = args.Position.Coordinate.Latitude;
+                        Double lon = args.Position.Coordinate.Longitude;
 
+                        GeoCoordinate currentCoordinate = new GeoCoordinate(lat, lon);
 
+                        if (poiList != null)
+                        {
 
-            if (!App.RunningInBackground)
-            {
-                Dispatcher.BeginInvoke(() =>
-                {
-                    NavigationService.Navigate(new Uri("/Detail.xaml?msg=", UriKind.Relative));
-                });
-            }
-            else
-            {
-                Microsoft.Phone.Shell.ShellToast toast = new Microsoft.Phone.Shell.ShellToast();
-                toast.Content = args.Position.Coordinate.Latitude.ToString("0.00");
-                toast.Title = "Location: ";
-                toast.NavigationUri = new Uri("/Detail.xaml", UriKind.Relative);
-                toast.Show();
+                            foreach (PointOfInterest poi in poiList)
+                            {
+                                if (poi.Polygon.IncludePoint(currentCoordinate))
+                                {
+                                    if (!App.RunningInBackground)
+                                    {
+                                        Dispatcher.BeginInvoke(() =>
+                                        {
+                                            PhoneApplicationService.Current.State["currentpushpin"] = poi;
+                                            NavigationService.Navigate(new Uri("/Detail.xaml", UriKind.Relative));
+                                        });
+                                    }
+                                    else
+                                    {
+                                        Microsoft.Phone.Shell.ShellToast toast = new Microsoft.Phone.Shell.ShellToast();
+                                        toast.Content = args.Position.Coordinate.Latitude.ToString("0.00");
+                                        toast.Title = "Location: ";
+                                        toast.NavigationUri = new Uri("/Detail.xaml", UriKind.Relative);
+                                        toast.Show();
 
-            }
+                                    }
+                                }
+                            }
+                        }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
