@@ -54,7 +54,7 @@ namespace _ScaviBiz
                     writer.WriteElementString("summary", poi.summary);
                     writer.WriteElementString("tipology", poi.type);
                     writer.WriteElementString("rating", poi.rating.ToString());
-                    writer.WriteStartElement("polygon", "georss");
+                    writer.WriteStartElement("polygon", "georss", "xmlns");
                     foreach (GeoCoordinate coordinate in poi.Polygon.points)
                     {
                         writer.WriteStartElement("point", "georss");

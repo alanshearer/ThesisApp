@@ -18,7 +18,6 @@ namespace _ScaviDal
 {
     public class FilePointOfInterestGetter : IPointOfInterestGetter
     {
-        String poisString = null;
         public async Task<PointOfInterest> GetPointOfInterestByPosition(GeoCoordinate coordinate)
         {
             List<PointOfInterest> pois = await GetPointsOfInterest();
@@ -49,23 +48,26 @@ namespace _ScaviDal
             }
             return null;
         }
-        public String GetString()
+        public Task<String> GetString()
         {
-            _Scavi.ScaviServiceReference.ScaviServiceClient clientForTesting = new _Scavi.ScaviServiceReference.ScaviServiceClient();
-            clientForTesting.GetPointsOfInterestRSSCompleted += new EventHandler<_Scavi.ScaviServiceReference.GetPointsOfInterestRSSCompletedEventArgs>(calculateCallback);
-            clientForTesting.GetPointsOfInterestRSSAsync();
-            while (poisString == null)
-            {
-                Thread.Sleep(100);
-            }
+            var tcs = new TaskCompletionSource<string>();
 
-            return poisString;
+            _Scavi.ScaviServiceReference.ScaviServiceClient clientForTesting = new _Scavi.ScaviServiceReference.ScaviServiceClient();
+            //clientForTesting.GetPointsOfInterestRSSCompleted += new EventHandler<_Scavi.ScaviServiceReference.GetPointsOfInterestRSSCompletedEventArgs>(calculateCallback);
+
+            clientForTesting.GetPointsOfInterestRSSCompleted += (sender, args) =>
+                {
+                    tcs.SetResult(args.Result);
+                };
+
+            clientForTesting.GetPointsOfInterestRSSAsync();
+            return tcs.Task;
         }
 
         private void calculateCallback(object sender, _Scavi.ScaviServiceReference.GetPointsOfInterestRSSCompletedEventArgs e)
         {
-            poisString = e.Result;
 
+            //poisString = e.Result;
         }
 
 
@@ -78,24 +80,29 @@ namespace _ScaviDal
                 //Stream stream = await GetStream();
                 ////Pass the file path and file name to the StreamReader constructor
                 //StreamReader sr = new StreamReader(stream);
-
-                String str = GetString();
+                
+                String str = await GetString();
 
                 XNamespace georss = XNamespace.Get("http://www.georss.org/georss");
                 
-                XDocument document = XDocument.Load(str);
+                XDocument document = XDocument.Parse(str);
                 XElement mainel = document.Root;
                 IEnumerable<XElement> elements = from el in mainel.Descendants("entry") select el;
                
 
                 foreach (XElement el in elements)
                 {
-                    String name="", summary="";
+                    String ID="", name="", summary="";
                     Uri url= null;
                     PointOfInterestType tipology=null;
                     GeoPolygon realpolygon = new GeoPolygon();
                     GeoPolygon realpolygonwithmargin = new GeoPolygon();
-               
+
+                    if (el.Element("ID") != null)
+                    {
+                        ID = el.Element("ID").Value;
+                    }
+
                     if (el.Element("name")!=null)
                     {
                         name = el.Element("name").Value;
@@ -118,19 +125,37 @@ namespace _ScaviDal
                         tipology = UtilityDal.GetTypeFromString(temptipology);
                     }
 
-                    if (el.Element(georss + "polygon") != null)
+                    if (el.Element("polygon") != null)
                     {
-                        List<String> elementcoordinateStrings = el.Element(georss + "polygon").Value.Split(' ').ToList();
-                        for (int i = 0; i < elementcoordinateStrings.Count; i = i + 2)
+                        XElement polygonEl = el.Element("polygon");
+                        IEnumerable<XElement> points = from currentEl in polygonEl.Descendants("point") select currentEl;
+
+                        foreach (XElement point in points)
                         {
-                            Double lat = Double.Parse(elementcoordinateStrings.ElementAt(i), CultureInfo.InvariantCulture);
-                            Double lon = Double.Parse(elementcoordinateStrings.ElementAt(i + 1), CultureInfo.InvariantCulture);
+                            Double lat =0 , lon=0;
+                           if (el.Element("lat") != null)
+                           {
+                               lat = Double.Parse(point.Element("lat").Value, CultureInfo.InvariantCulture);
+                           }
+                           if (el.Element("lon") != null)
+                           {
+                               lon = Double.Parse(point.Element("lon").Value, CultureInfo.InvariantCulture);
+                           }
 
-
-                            realpolygon.Add(new GeoCoordinate(lat, lon));
-
+                           realpolygon.Add(new GeoCoordinate(lat, lon));
 
                         }
+                        //List<String> elementcoordinateStrings = el.Element(georss + "polygon").Value.Split(' ').ToList();
+                        //for (int i = 0; i < elementcoordinateStrings.Count; i = i + 2)
+                        //{
+                        //    Double lat = Double.Parse(elementcoordinateStrings.ElementAt(i), CultureInfo.InvariantCulture);
+                        //    Double lon = Double.Parse(elementcoordinateStrings.ElementAt(i + 1), CultureInfo.InvariantCulture);
+
+
+                        //    realpolygon.Add(new GeoCoordinate(lat, lon));
+
+
+                        //}
                         GeoCoordinate center = realpolygon.GetCenter();
                         if (el.Element("margin") != null)
                         {
